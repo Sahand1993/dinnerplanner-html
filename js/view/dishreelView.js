@@ -9,19 +9,22 @@ var DishReelView = function(container, model){
 	allDishes.push(...desserts);
 
 	for(var i=0; i<allDishes.length; i++){
-		var td = document.createElement("td");
-		
-		var img = document.createElement("img");
-		img.classList.add("dishimg");
-		img.src = "images/"+allDishes[i].image;
-		
-		var p = document.createElement("p");
-		var text = document.createTextNode(allDishes[i].name);
-		p.appendChild(text);
 
-		td.append(img);
-		td.append(p);
-		container.find("tr").append(td);
+		var dish = document.createElement("div");
+		var imgFrame = document.createElement("div");
+		var img = document.createElement("img");
+		var p = document.createElement("p");
+
+		dish.classList.add("dish", "col-lg-3", "col-md-6", "col-sm-12", "col-xs-12");
+		imgFrame.classList.add("imgframe");
+		img.src = "images/"+allDishes[i].image;
+		p.innerHTML = allDishes[i].name;
+
+		imgFrame.appendChild(img);
+		imgFrame.appendChild(p);
+		dish.appendChild(imgFrame);
+		console.log(container);
+		container.append(dish);
 	}
 
 }

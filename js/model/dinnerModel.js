@@ -1,38 +1,39 @@
 //DinnerModel Object constructor
+
 var DinnerModel = function() {
  
 	//TODO Lab 1 implement the data structure that will hold number of guest
 	// and selected dishes for the dinner menu
 	
-	this.numberOfGuests = 0;
+	var numberOfGuests = 5;
 
-	this.selectedDishes = [];
+	var selectedDishes = [];
 
 	this.setNumberOfGuests = function(num) {
-		this.numberOfGuests = num;
+		numberOfGuests = num;
 	}
 	
 	this.getNumberOfGuests = function() {
-		return this.numberOfGuests;
+		return numberOfGuests;
 	}
 
 	//Returns the dish that is on the menu for selected type 
 	this.getSelectedDish = function(type) {
-		return this.selectedDishes.filter(function(dish){
+		return selectedDishes.filter(function(dish){
 			return dish.type == type;
 		});
 	}
 
 	//Returns all the dishes on the menu.
 	this.getFullMenu = function() {
-		return this.selectedDishes;
+		return selectedDishes;
 	}
 
 	//Returns all ingredients for all the dishes on the menu.
 	this.getAllIngredients = function() {
 		var allIngredients = [];
-		for(var i=0; i<this.selectedDishes.length; i++){
-			var dishIngredients = this.selectedDishes[i].ingredients;
+		for(var i=0; i<selectedDishes.length; i++){
+			var dishIngredients = selectedDishes[i].ingredients;
 			allIngredients.push(...dishIngredients);
 		}
 		return allIngredients;
@@ -43,7 +44,7 @@ var DinnerModel = function() {
 		var totalPrice = 0;
 		var allIngredients = this.getAllIngredients();
 		for(var i=0; i<allIngredients.length; i++){
-			totalPrice += allIngredients[i].price*this.numberOfGuests;
+			totalPrice += allIngredients[i].price*numberOfGuests;
 		}
 		return totalPrice;
 	}
@@ -51,12 +52,19 @@ var DinnerModel = function() {
 	//Adds the passed dish to the menu. If the dish of that type already exists on the menu
 	//it is removed from the menu and the new one added.
 	this.addDishToMenu = function(id) {
-		this.selectedDishes.push(this.getDish(id));
+		var newDish = this.getDish(id);
+		var oldDish = this.getSelectedDish(newDish.type);
+		if (oldDish != undefined){
+			var index = selectedDishes.indexOf(newDish);
+			selectedDishes.splice(index, 1);
+		}
+
+		selectedDishes.push(newDish);
 	}
 
 	//Removes dish from menu
 	this.removeDishFromMenu = function(id) {
-		this.selectedDishes = this.selectedDishes.filter(function(dish){
+		selectedDishes = selectedDishes.filter(function(dish){
 			return dish.id!=id;
 		})
 	}
@@ -345,3 +353,4 @@ var DinnerModel = function() {
 	];
 
 }
+

@@ -1,15 +1,237 @@
 .topdiv{
 	max-height:100px;
 	min-height:100px;
-	background-color: blue;
+	background-color: #DCDCDC;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-left: 0px;
+	position:sticky;
+	top:0px;
+	z-index:1;
+	width:100%;
+	border-bottom: solid;
+	overflow-x: hidden;
 }
 
-#sidebar{
+.topdiv h1{
+	font-family: "Comic Sans MS";
+	font-weight:bold;
 	position:absolute;
-	top:100px;
-	width:150px;
+	top:5px;
+	text-align: center;
+	width:100%;
+}
+
+.container-fluid{
+	padding:0px;
+	width:100%;
 	height:100%;
-	background-color:red;
+	overflow-x:hidden;
+}
+
+.indexbody{
+	padding:40px;
+}
+
+.buttonwrapper{
+	text-align: center;
+}
+
+.buttonwrapper button{
+	top:0%;
+}
+
+.sidebar{
+	position:fixed;
+	width:300px;
+	top:100px;
+	height:100%;
+	border-right: solid;
+	padding: 0px;
+
+}
+
+.main-bar{
+	position:relative;
+	left:300px;
+	right:0px;
+}
+
+.dishsearch{
+	padding-left: 10px;
+	padding-bottom: 20px;
+	border-bottom: solid;
+	position:sticky;
+	top:100px;
+	z-index: 1;
+	background-color: white;
+}
+
+.dishreel{
+	top:196px;
+	padding-top: 40px;
+}
+
+.ingredients-list ul{
+	list-style: none;
+	padding-left: 10px;
+}
+
+.ingredients-list h4{
+	margin-top: 20px;
+}
+
+.ingredients-list li{
+	padding:4px;
+}
+
+.preparation p{
+	padding: 20px;
+}
+
+.dish{
+	text-align: center;
+	padding:10px;
+	margin-top: 20px;
+}
+
+.dish p{
+	height:42px;
+	display:flex;
+	align-items: center;
+	justify-content: center;
+}
+
+
+
+.dish img{
+	border-bottom: solid;
+	display:block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.imgframe{
+	width:146px;
+	height:auto;
+	margin:0 auto;
+	border:solid;
+	background-color: #DCDCDC;
+}
+
+.imgframe p{
+	font-family: "Comic Sans MS";
+	margin-top: auto;
+	margin-bottom: auto;
+
+}
+
+.noofpeople-wrapper input{
+	width:55px;
+}
+
+.noofpeople{
+	position:relative;
+	padding-top: 20px;
+	padding-right: 0px;
+	padding-bottom: 20px;
+	padding-left: 50px;
+	right:0px;
+	width:100%;
+}
+
+
+
+.dish-item-view{
+	height:100vh;
+}
+
+.dinneroverview{
+	width:100%;
+	padding:0px;
+	margin:0px;
+}
+
+.menuitemwrapper span{
+	color:#ef4545;
+}
+
+.dish-overview-header{
+	border-bottom: solid;
+	border-top: solid;
+	height:25px;
+	padding-left:25px;
+	padding-right: 30px;
+	margin:0px;
+	background-color: #d4d5d8;
+}
+
+.price{
+	position:relative;
+	padding-top: 50px;
+	padding-bottom: 0px;
+	color:red;
+}
+
+.total{
+	border-top:solid;
+}
+
+.confirm{
+	padding-left: 10px;
+	text-align: center;
+}
+
+.no-padding{
+	padding:0px;
+}
+
+.pricetag{
+	float:right;
+	color: red;
+}
+
+.menutotal{
+	border-left: solid;
+	display: table-cell;
+	padding-left: 10px;
+}
+
+.col-centered{
+	float:none;
+	margin: 0 auto;
+}
+
+#hamburger{
+	display:block;
+}
+
+.hamburgerdiv{
+	display:flex;
+	align-items:center;
+	justify-content:center;
+}
+
+html, body{
+	height:100%;
+	margin:0px;
+	padding:0px;
+}
+
+.dish-name{
+	float:left;
+
+}
+.cost{
+	float:right;
+}
+
+.dishprice{
+	float:right;
+}
+
+.price{
+	padding-right:10px;
 }
 
 .searchbar{
@@ -22,12 +244,289 @@
 	width:50px;
 }
 
-#dishreel{
-	height:100%;
-	width:100%;
+.menuitemwrapper{
+	padding-top: 20px;
+	padding-bottom: 0px;
+	padding-left: 20px;
+	margin-right: 17px;
 }
 
-#dishreel table{
-	position:absolute;
-	top:40%;
+.menuitem{
+	border-style: solid;
+	width:100%;
+	padding:5px;
+	left:10px;
+	right:10px;
 }
+
+.confirm{
+	padding-top: 40px;
+}
+
+.dishtext{
+	padding-left: 0px;
+}
+
+
+.back-to-search{
+	padding-left:0px;
+}
+
+.ingredients-list{
+	background-color:#e2a556;
+	margin-top: 10px;
+	padding-top: 10px;
+	padding-bottom: 15px;
+}
+
+.dishsearch .keyword{
+	padding-right: 0px;
+}
+.dishsearch .select{
+	padding:0px;
+}
+.dishsearch .search{
+	padding:0px;
+}
+
+.dinner-overview-header{
+	border-bottom: dotted;
+}
+
+.menubottomline{
+	border-bottom:solid;
+	height:50px;
+}
+
+.printbuttonwrapper{
+	text-align: center;
+	padding-top: 10px;
+}
+
+.menuwrapper{
+	padding-top:50px;
+	margin:0 auto;
+}
+
+.menutotal span{
+	display:block;
+}
+
+.dinnertotal{
+	color:red;
+}
+
+.dinneroverview-price{
+	color:red;
+	padding-top: 50px;
+	padding-bottom: 0px;
+	padding-right:30px;
+}
+
+.dinneroverview-pricetag{
+	float:right;
+}
+
+.dinnerprintout-row{
+	padding-top: 30px;
+}
+
+.dinnerprintout-dish{
+	padding-left: 60px;
+}
+.dinnerprintout-dishtext h3{
+	margin-top: 0px;
+}
+
+.dishdetails-price{
+	padding-right:30px;
+}
+
+.dinnerprintout-img-and-text img{
+	float:left;
+}
+
+.dinnerprintout-img{
+	padding-right: 10px;
+	float:left;
+}
+
+.dinnerprintout-preparation h3{
+	margin-top: 0px;
+}
+
+
+@media (min-width: 768px){
+	.dinner-overview-header button{
+		float:right;
+		margin-top: 20px;
+		margin-bottom: 10px;
+		margin-right: 20px;
+	}
+	.dinner-overview-header h3{
+	margin-left: 40px;
+	}
+
+	.main-bar{
+		width:calc(100% - 297px);
+	}
+	
+}
+
+
+
+.menu{
+	display:table-cell;
+}
+
+.dinneroverview-dish{
+	display:table-cell;
+	padding:10px;
+}
+
+@media (max-width: 767px){
+	.dinner-overview-header{
+		text-align: center;
+		padding-bottom: 20px
+	}
+	.dinner-overview-header h3{
+		padding-top: 5px;
+		padding-bottom:10px;
+	}
+	.menuwrapper{
+		text-align: center;
+	}
+	.dinneroverview-menu{
+		display:block;
+	}
+	.dinneroverview-dish{
+		display:block;
+	}
+	.menutotal{
+		display:block;
+		border-left:none;
+
+	}
+	.menutotal .floatdiv{
+			border-top:solid black;
+			width:143px;
+		}
+	.floatdiv{
+		display:inline-block;
+	}
+	.instructions h3{
+		text-align: center;
+	}
+	/* Dinner printout */
+	.dinnerprintout-img-and-text{
+		float:none;
+		margin:0 auto;
+	}
+	.dinnerprintout-preparation-wrapper{
+		margin:0 auto;
+		float:none;
+		text-align: center;
+	}
+	.dinnerprintout-row{
+		padding-top: 40px;
+		padding-bottom: 20px;
+	}
+	.dinnerprintout-dish{
+		padding:0px;
+	}
+	.dinnerprintout-dishtext{
+		text-align: center;
+	}
+	.dinnerprintout-dishtext h3{
+		float:left;
+	}
+	.dinnerprintout-img-and-text img{
+		float:none;
+	}
+	.dinnerprintout-img-and-text{
+		float:none;
+	}
+	.dinnerprintout-img{
+		float:none;
+		text-align: center;
+		padding:0px;
+	}
+
+}
+
+
+
+
+
+@media (max-width: 1292px) and (min-width: 768px){
+	.dish-ingredients{
+		width:100% !important;
+		padding-right: 100px;
+		padding-bottom: 30px;
+	}
+
+}
+
+/*dishdetails*/
+@media (max-width: 766px){
+	.dish-ingredients{
+		padding-bottom: 30px;
+	}
+	
+}
+
+@media (max-width: 884px) and (min-width:767px){
+	.dishimg{
+		width:160%;
+	}
+}
+
+@media (min-width: 767px){
+	.sidebar{
+		display:block !important;
+		border-right: solid;
+		height:100% !important;
+	}
+	#hamburger{
+		display:none;
+	}
+	.hamburgerdiv{
+		display:none;
+	}
+	.menuitem{
+		width:270px;
+		left:20px;
+	}
+}
+
+@media (max-width: 766px){
+	.container-fluid{
+		height:1200px;
+	}
+	.sidebar{
+		width:100%;
+		height:40%;
+		position:static;
+		display:none;
+		background-color: #e5e6e8;
+		padding-bottom: 20px;
+	}
+	.main-bar{
+		left:0px;
+
+	}
+	.dishimg{
+		width:100%;
+	}
+	.confirm{
+		padding-top:40px;
+	}
+
+}
+
+@media (max-width: 360px){
+	.confirm button{
+		width:30px;
+	}
+}
+

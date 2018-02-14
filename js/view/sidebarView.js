@@ -1,8 +1,7 @@
 var SideBarView = function(container, model){
 	var numberOfGuests = container.find("#numberOfGuests");
 
-	this.plusButton = container.find("#plusGuest");
-	this.minusButton = container.find("#minusGuest");
-
-	numberOfGuests.text(model.numberOfGuests);
+	var plusButton = container.find("#plusGuest");
+	var minusButton = container.find("#minusGuest");
+	numberOfGuests.val(model.getNumberOfGuests);
 }
