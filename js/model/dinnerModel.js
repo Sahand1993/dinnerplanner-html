@@ -12,7 +12,6 @@ var DinnerModel = function() {
 	var observers = []; // list of functions that make sure that the views show up-to-date information
 
 	this.addObserver = function(observer){ //type of observer? --> view
-		
 		observers.push(observer);
 	}
 
@@ -34,6 +33,9 @@ var DinnerModel = function() {
 
 	this.decrNumberOfGuests = function(){
 		numberOfGuests--;
+		if (numberOfGuests<0){
+			numberOfGuests = 0;
+		}
 		this.notifyObservers();
 	}
 	
@@ -82,8 +84,8 @@ var DinnerModel = function() {
 			var index = selectedDishes.indexOf(newDish);
 			selectedDishes.splice(index, 1);
 		}
-
 		selectedDishes.push(newDish);
+		notifyObservers();
 	}
 
 	//Removes dish from menu
@@ -91,7 +93,7 @@ var DinnerModel = function() {
 		selectedDishes = selectedDishes.filter(function(dish){
 			return dish.id!=id;
 		})
-
+		notifyObservers();
 	}
 
 	//function that returns all dishes of specific type (i.e. "starter", "main dish" or "dessert")

@@ -13,6 +13,8 @@ $(function() {
 		var dishReelView = new DishReelView(dishreel, model);	
 	}
 
+	var dinneroverviewController = new DinnerOverviewView(model);
+
 	/**
 	 * IMPORTANT: app.js is the only place where you are allowed to
 	 * use the $('someSelector') to search for elements in the whole HTML.

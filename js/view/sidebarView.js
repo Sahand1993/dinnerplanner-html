@@ -6,4 +6,6 @@ var SideBarView = function(container, model){
 	this.update = function(){
 		numberOfGuests.val(model.getNumberOfGuests());
 	}
+
+	model.addObserver(this);
 }
