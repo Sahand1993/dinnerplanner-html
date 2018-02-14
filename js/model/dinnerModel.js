@@ -4,13 +4,37 @@ var DinnerModel = function() {
  
 	//TODO Lab 1 implement the data structure that will hold number of guest
 	// and selected dishes for the dinner menu
-	
-	var numberOfGuests = 5;
+
+	var numberOfGuests = 0;
 
 	var selectedDishes = [];
 
+	var observers = []; // list of functions that make sure that the views show up-to-date information
+
+	this.addObserver = function(observer){ //type of observer? --> view
+		
+		observers.push(observer);
+	}
+
+	this.notifyObservers = function(){
+		for(var i = 0; i<observers.length; i++){
+			observers[i].update();
+		}
+	}
+
 	this.setNumberOfGuests = function(num) {
 		numberOfGuests = num;
+		this.notifyObservers();
+	}
+
+	this.incrNumberOfGuests = function(){
+		numberOfGuests++;
+		this.notifyObservers();
+	}
+
+	this.decrNumberOfGuests = function(){
+		numberOfGuests--;
+		this.notifyObservers();
 	}
 	
 	this.getNumberOfGuests = function() {
@@ -67,6 +91,7 @@ var DinnerModel = function() {
 		selectedDishes = selectedDishes.filter(function(dish){
 			return dish.id!=id;
 		})
+
 	}
 
 	//function that returns all dishes of specific type (i.e. "starter", "main dish" or "dessert")

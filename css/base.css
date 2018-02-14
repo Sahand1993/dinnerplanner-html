@@ -355,7 +355,6 @@ html, body{
 	margin-top: 0px;
 }
 
-
 @media (min-width: 768px){
 	.dinner-overview-header button{
 		float:right;
@@ -372,8 +371,6 @@ html, body{
 	}
 	
 }
-
-
 
 .menu{
 	display:table-cell;
