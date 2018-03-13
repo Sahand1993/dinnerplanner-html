@@ -11,32 +11,35 @@ var DinnerModel = function() {
 
 	var observers = []; // list of functions that make sure that the views show up-to-date information
 
+	//Returns price for 1 person eating dish
+	this.calcPrice = function(dish){
+		var totPrice = 0;
+		dish.ingredients.forEach(function(ingredient){
+			totPrice += ingredient.price;
+		});
+		return totPrice;
+	}
+
+	this.getDishTypes = function(){
+		return ["starter", "main dish", "side dish", "dessert"];
+	}
+
 	this.addObserver = function(observer){ //type of observer? --> view
 		observers.push(observer);
 	}
 
-	this.notifyObservers = function(){
+	var notifyObservers = function(){
 		for(var i = 0; i<observers.length; i++){
 			observers[i].update();
 		}
 	}
 
 	this.setNumberOfGuests = function(num) {
-		numberOfGuests = num;
-		this.notifyObservers();
-	}
-
-	this.incrNumberOfGuests = function(){
-		numberOfGuests++;
-		this.notifyObservers();
-	}
-
-	this.decrNumberOfGuests = function(){
-		numberOfGuests--;
-		if (numberOfGuests<0){
-			numberOfGuests = 0;
+		if(num<0){
+			return;
 		}
-		this.notifyObservers();
+		numberOfGuests = num;
+		notifyObservers();
 	}
 	
 	this.getNumberOfGuests = function() {
@@ -79,9 +82,12 @@ var DinnerModel = function() {
 	//it is removed from the menu and the new one added.
 	this.addDishToMenu = function(id) {
 		var newDish = this.getDish(id);
-		var oldDish = this.getSelectedDish(newDish.type);
+		
+		//is there a dish of the same type?
+		var oldDish = this.getSelectedDish(newDish.type)[0];
+		//if there is, remove it
 		if (oldDish != undefined){
-			var index = selectedDishes.indexOf(newDish);
+			var index = selectedDishes.indexOf(oldDish);
 			selectedDishes.splice(index, 1);
 		}
 		selectedDishes.push(newDish);
@@ -101,15 +107,16 @@ var DinnerModel = function() {
 	//if you don't pass any filter all the dishes will be returned
 	this.getAllDishes = function (type,filter) {
 	  return dishes.filter(function(dish) {
+		filter = filter.toLowerCase();
 		var found = true;
 		if(filter){
 			found = false;
 			dish.ingredients.forEach(function(ingredient) {
-				if(ingredient.name.indexOf(filter)!=-1) {
+				if(ingredient.name.toLowerCase().indexOf(filter)!=-1) {
 					found = true;
 				}
 			});
-			if(dish.name.indexOf(filter) != -1)
+			if(dish.name.toLowerCase().indexOf(filter) != -1)
 			{
 				found = true;
 			}
@@ -379,5 +386,8 @@ var DinnerModel = function() {
 		}
 	];
 
+}
+DinnerModel.prototype.toString = function(){
+	return "DinnerModel";
 }
 

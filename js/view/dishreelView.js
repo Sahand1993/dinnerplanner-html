@@ -23,8 +23,6 @@ var DishReelView = function(container, model){
 		imgFrame.appendChild(img);
 		imgFrame.appendChild(p);
 		dish.appendChild(imgFrame);
-		console.log(container);
 		container.append(dish);
 	}
-
 }

@@ -1,10 +1,12 @@
-var SideController = function(container, model){
-	var plusButton = container.find("#plusButton");
-	var minusButton = container.find("#minusButton");
-	plusButton[0].onclick = function(){
-		model.incrNumberOfGuests();
-	};
-	minusButton[0].onclick = function(){
-		model.decrNumberOfGuests();
-	};
+var SideController = function(container, model, generalController){
+	var guestsInput = container.find("#numberOfGuests");
+	var confirm = container.find("#confirm");
+	guestsInput.change(
+		function(){
+			model.setNumberOfGuests(guestsInput.val());
+		}
+	);
+	confirm.click(function(){
+		generalController.showScreen("OVERVIEW");
+	});
 };

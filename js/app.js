@@ -1,25 +1,55 @@
 $(function() {
 	//We instantiate our model
 	var model = new DinnerModel();
-	// And create the instance of ExampleView
+
+	// We instantiate the general controller
+	var generalController = new GeneralController();
+	
+ 	var head = $("#header");
+	var headView = new HeaderView(head, model);
+	generalController.addView(headView);
+
 	var sidebar = $("#sidebar");
-	if(sidebar[0] != undefined){
-		var sidebarView = new SideBarView(sidebar, model); 
-		var sidebarController = new SideController(sidebar, model);
-	}
+	var sidebarView = new SideBarView(sidebar, model); 
+	generalController.addView(sidebarView);
+	var sidebarController = new SideController(sidebar, model, generalController);
 
-	var dishreel = $("#dishreel");
-	if(dishreel[0] != undefined){
-		var dishReelView = new DishReelView(dishreel, model);	
-	}
+	// the search bar and the results
+	var dishSearcher = $("#dishSearcher");
+	var dishreel = dishSearcher.find("#dishreel")[0];
+	// PROBLEM: dishSearcherView doesn't load the html before dishSearcherController runs and therefore dishSearcherController.dishreel becomes undefined
+	var dishSearcherView = new DishSearcherView(dishSearcher, model); 
+	generalController.addView(dishSearcherView);
+	var dishSearcherController = new DishSearcherController(dishSearcher, model);
+ 
+	var dinnerOverview = $("#dinnerOverview");
+	var dinnerOverviewView = new DinnerOverviewView(dinnerOverview, model);
+	generalController.addView(dinnerOverviewView);
+	var dinnerOverviewController = new DinnerOverviewController(dinnerOverview, model, generalController);
+	
+	var welcome = $("#welcome");
+	var welcomeView = new WelcomeView(welcome, model);
+	generalController.addView(welcomeView);
+	var welcomeController = new WelcomeController(welcome, model, generalController);
+	//var dinneroverviewController = new DinnerOverviewView(model);
 
-	var dinneroverviewController = new DinnerOverviewView(model);
+	var dinnerPrintout = $("#dinnerprintout");
+	var dinnerPrintoutView = new DinnerPrintoutView(dinnerPrintout, model);
+	generalController.addView(dinnerPrintoutView);
+	var dinnerPrintoutController = new DinnerPrintoutController(dinnerPrintout, model);
 
-	/**
-	 * IMPORTANT: app.js is the only place where you are allowed to
-	 * use the $('someSelector') to search for elements in the whole HTML.
-	 * In other places you should limit the search only to the children 
-	 * of the specific view you're working with (see exampleView.js).
-	 */
+	var summaryHeader = $("#summaryHeader");
+	var summaryHeaderView = new SummaryHeaderView(summaryHeader, model);
+	generalController.addView(summaryHeaderView);
+	var summaryHeaderController = new SummaryHeaderController(summaryHeader, model, generalController);
+
+	//Adding all screens
+	generalController.addScreen("WELCOME", [headView, welcomeView]);
+	generalController.addScreen("EDIT", [sidebarView, headView, dishSearcherView]);
+	generalController.addScreen("OVERVIEW", [headView, dinnerOverviewView, summaryHeaderView]);
+	generalController.addScreen("PRINT", [headView, dinnerPrintoutView, summaryHeaderView]);
+	//Start off by showing welmcome screen
+	//generalController.showScreen("WELCOME");
+	generalController.showScreen("WELCOME");
 
 });
