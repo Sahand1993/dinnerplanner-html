@@ -455,7 +455,9 @@ html, body{
 	cursor:pointer;
 }
 
-
+.dishimg{
+	width:80%;
+}
 
 @media (max-width: 1292px) and (min-width: 768px){
 	.dish-ingredients{

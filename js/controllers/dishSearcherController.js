@@ -1,43 +1,20 @@
-var DishSearcherController = function(container, model, generalController){
+var DishSearcherController = function(container, model, generalController, view){
     var container = container;
     var model = model;
     var dishreel = container.find("#dishreel")[0];
+    var generalController = generalController;
 
-    container.on("click", "#search-button", updateMenu);
-    container.on("change", "#searchbar", updateMenu);
-    container.on("keyup", "#searchbar", updateMenu);
+    container.on("click", "#search-button", view.updateMenu);
+//    container.on("change", "#searchbar", view.updateMenu);
+    container.on("keyup", "#searchbar", function(event){
+        if (event.keyCode == 13){
+            view.updateMenu();
+        }
+    });
 
-    //Insert dishes matching search term into page
-    function updateMenu(){
-        dishreel.innerHTML = "";
-        var searchTerm = container.find("#searchbar").val();
-        var selectTypeDropDown = container.find("#select")[0];
-        var selectedIndex = selectTypeDropDown.selectedIndex;
-        var dishType = selectTypeDropDown[selectedIndex].value;
-        var results = model.getAllDishes(dishType, searchTerm);
-        results.forEach(function(result){
-            var dish = document.createElement("div");
-            dish.classList.add("dishsearch-dish");
-            var imgframe = document.createElement("div");
-            imgframe.classList.add("imgframe");
-            var img = document.createElement("img");
-            img.src = "images/"+result.image;
-            var par = document.createElement("p");
-            var txt = document.createTextNode(result.name);
-            
-            par.appendChild(txt);
-            imgframe.appendChild(img);
-            imgframe.appendChild(par);
-            dish.appendChild(imgframe);
-            dish.onclick = function(){
-                var id = result.id;
-                model.addDishToMenu(id);
-            };
-            dish.classList.add("handhover");
-
-            dishreel.appendChild(dish);
-
-        });
-    }
-
+    container.on("click", ".imgframe", function(){
+        var id = this.id; // what is "this". How do I get the ID of the dish
+        console.log("id in dishSearcherController: "+id);
+        generalController.showScreen("DETAILS", id);
+    });
 }

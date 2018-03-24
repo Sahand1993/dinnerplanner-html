@@ -18,10 +18,15 @@ $(function() {
 	var dishSearcher = $("#dishSearcher");
 	var dishreel = dishSearcher.find("#dishreel")[0];
 	// PROBLEM: dishSearcherView doesn't load the html before dishSearcherController runs and therefore dishSearcherController.dishreel becomes undefined
-	var dishSearcherView = new DishSearcherView(dishSearcher, model); 
+	var dishSearcherView = new DishSearcherView(dishSearcher, model, generalController); 
 	generalController.addView(dishSearcherView);
-	var dishSearcherController = new DishSearcherController(dishSearcher, model);
+	var dishSearcherController = new DishSearcherController(dishSearcher, model, generalController, dishSearcherView);
  
+	var dishDetails = $("#dishDetails");
+	var dishDetailsView = new DishDetailsView(dishDetails, model);
+	generalController.addView(dishDetailsView);
+	var dishDetailsController = new DishDetailsController(dishDetails, model, generalController);
+
 	var dinnerOverview = $("#dinnerOverview");
 	var dinnerOverviewView = new DinnerOverviewView(dinnerOverview, model);
 	generalController.addView(dinnerOverviewView);
@@ -46,6 +51,7 @@ $(function() {
 	//Adding all screens
 	generalController.addScreen("WELCOME", [headView, welcomeView]);
 	generalController.addScreen("EDIT", [sidebarView, headView, dishSearcherView]);
+	generalController.addScreen("DETAILS", [sidebarView, headView, dishDetailsView]);
 	generalController.addScreen("OVERVIEW", [headView, dinnerOverviewView, summaryHeaderView]);
 	generalController.addScreen("PRINT", [headView, dinnerPrintoutView, summaryHeaderView]);
 	//Start off by showing welmcome screen
