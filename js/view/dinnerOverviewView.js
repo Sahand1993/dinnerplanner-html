@@ -20,36 +20,47 @@ var DinnerOverviewView = function(container, model){
         //remove old dishes
         dishes.innerHTML = "";
         var dishTypes = model.getDishTypes();
+        var menu = [];
         dishTypes.forEach(function(type){
-            var dish = model.getSelectedDish(type)[0];
-            if(dish == undefined){
+            var dishesOfType = model.getSelectedDish(type); // only add the unique ones
+            if(dishesOfType == undefined){
                 return;
             }
-            var price = model.calcPrice(dish)*model.getNumberOfGuests();
+            dishesOfType.forEach(function(dish){
+                if(menu.indexOf(dish)==-1){
+                    menu.push(dish);
+                    var price = model.calcPrice(dish)*model.getNumberOfGuests();
+                    var img = document.createElement("img");
+                    console.log("dinnerovewview img: "+dish.image);
+                    img.src = dish.image;
+                    img.classList.add("overview-img");
+                    var p = document.createElement("p");
+                    var text = document.createTextNode(dish.title);
+                    var frame = document.createElement("div");
+                    frame.classList.add("imgframe");
+                    var priceTag = document.createElement("span");
+                    priceTag.classList.add("pricetag");
+                    var priceText = document.createTextNode(price+" SEK");
+                    var floatdiv = document.createElement("div");
+                    floatdiv.classList.add("floatdiv");
+                    var dishElement = document.createElement("div");
+                    dishElement.classList.add("dinneroverview-dish");
 
-            var img = document.createElement("img");
-            img.src = "images/"+dish.image;
-            var p = document.createElement("p");
-            var text = document.createTextNode(dish.name);
-            var frame = document.createElement("div");
-            frame.classList.add("imgframe");
-            var priceTag = document.createElement("span");
-            priceTag.classList.add("pricetag");
-            var priceText = document.createTextNode(price+" SEK");
-            var floatdiv = document.createElement("div");
-            floatdiv.classList.add("floatdiv");
-            var dishElement = document.createElement("div");
-            dishElement.classList.add("dinneroverview-dish");
+                    p.appendChild(text);
+                    priceTag.appendChild(priceText);
+                    frame.appendChild(img);
+                    frame.appendChild(p);
+                    floatdiv.appendChild(frame);
+                    floatdiv.appendChild(priceTag);
+                    dishElement.appendChild(floatdiv);
 
-            p.appendChild(text);
-            priceTag.appendChild(priceText);
-            frame.appendChild(img);
-            frame.appendChild(p);
-            floatdiv.appendChild(frame);
-            floatdiv.appendChild(priceTag);
-            dishElement.appendChild(floatdiv);
+                    dishes.appendChild(dishElement);
+                }
+            });
+            
+            
 
-            dishes.appendChild(dishElement);
+            
         });
         var menutotal = document.createElement("div");
         menutotal.classList.add("menutotal");
@@ -60,7 +71,7 @@ var DinnerOverviewView = function(container, model){
         var labelText = document.createTextNode("Total:");
         var dinnerTotal = document.createElement("span");
         dinnerTotal.classList.add("dinnertotal");
-        var totalText = document.createTextNode(model.getTotalMenuPrice()+"");
+        var totalText = document.createTextNode(model.getTotalMenuPrice()+" SEK");
 
         totalLabel.appendChild(labelText);
         dinnerTotal.appendChild(totalText);

@@ -17,7 +17,9 @@
   </head>
   <body>
     <div class="container-fluid">
-      
+      <div id="error">
+        <p>There seems to have been an error. Please refresh and try again.</p>
+      </div>
       <div id="header" class="topdiv"></div>
 
       <div id="welcome"></div>
@@ -26,8 +28,8 @@
           <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12 main-bar">
 
               <div class="dishdetails col-lg-7 col-md-6 col-sm-6 col-xs-12">
-                <h3 id="dishtitle" class="dishtitle">Baked Brie</h3>
-                <img id="dishimg" class="dishimg" src="images/bakedbrie_details.jpg">
+                <h3 id="dishtitle" class="dishtitle"></h3>
+                <img id="dishimg" class="dishimg">
                 <div id="dishtext" class="dishtext col-lg-12 col-md-12 col-sm-12 col-xs-12">
                   <p></p>
                 </div>
@@ -132,6 +134,8 @@
                 <option value="side">Side Dish</option>
                 <option value="dessert">Dessert</option>
                 <option value="starter">Appetizer</option>
+                <option value="salad">Salad</option>
+                <!-- Don't want to add more than salad because the other options, such as "dinner" and "lunch" don't make any sense-->
               </select>
             </div>
             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-4 search"> 
@@ -171,5 +175,6 @@
     <script src="js/controllers/summaryHeaderController.js"></script>
     <script src="js/controllers/dishDetailsController.js"></script>
     <script src="js/view/dishDetailsView.js"></script>
+    <script src="js/view/errorView.js"></script>
   </body>
 </html>

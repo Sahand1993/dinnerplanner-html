@@ -3,6 +3,7 @@ var DishSearcherController = function(container, model, generalController, view)
     var model = model;
     var dishreel = container.find("#dishreel")[0];
     var generalController = generalController;
+    var select = container.find("#select");
 
     container.on("click", "#search-button", view.updateMenu);
 //    container.on("change", "#searchbar", view.updateMenu);
@@ -13,8 +14,9 @@ var DishSearcherController = function(container, model, generalController, view)
     });
 
     container.on("click", ".imgframe", function(){
-        var id = this.id; // what is "this". How do I get the ID of the dish
-        console.log("id in dishSearcherController: "+id);
-        generalController.showScreen("DETAILS", id);
+        generalController.setCurrentDish(this.id); // id is stored in imgframe element's id attribute
+        var type = select.val();
+        generalController.setCurrentType(type);
+        generalController.showScreen("DETAILS");
     });
 }

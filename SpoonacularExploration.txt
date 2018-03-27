@@ -1,0 +1,12 @@
+For getting recipe from ID:
+
+	https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/358094/information
+
+For searching recipe on titles in free text:
+
+	https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/autocomplete?query=pizza
+
+For searching recipes by dish type:
+
+	not possible. Instead, you'll have to use /recipes/informationBulk to get info about multiple recipes, and each recipe json object will have a dish type field. You can then filter on this.
+

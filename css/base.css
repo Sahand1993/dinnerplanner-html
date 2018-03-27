@@ -119,6 +119,16 @@
 	background-color: #DCDCDC;
 }
 
+.dishsearch-img{
+	width:140px;
+	height:140px;
+}
+
+.overview-img{
+	width:140px;
+	height:140px;
+}
+
 .imgframe p{
 	font-family: "Comic Sans MS";
 	margin-top: auto;

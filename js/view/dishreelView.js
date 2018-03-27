@@ -1,13 +1,13 @@
 var DishReelView = function(container, model){
-	var starters = model.getAllDishes('starter');
-	var mains = model.getAllDishes('main dish');
-	var desserts = model.getAllDishes('dessert');
+	var starter = model.getAllDishes('starter');
+	var main = model.getAllDishes('main dish');
+	var dessert = model.getAllDishes('dessert');
 
 	var allDishes = [];
-	allDishes.push(...starters);
-	allDishes.push(...mains);
-	allDishes.push(...desserts);
-
+	allDishes.push(...starter);
+	allDishes.push(...main);
+	allDishes.push(...dessert);
+	console.log("allDishes in dishReelView: "+allDishes);
 	for(var i=0; i<allDishes.length; i++){
 
 		var dish = document.createElement("div");
@@ -17,6 +17,7 @@ var DishReelView = function(container, model){
 
 		dish.classList.add("dish", "col-lg-3", "col-md-6", "col-sm-12", "col-xs-12");
 		imgFrame.classList.add("imgframe");
+		console.log("allDishes[i].image: "+allDishes[i].image);
 		img.src = "images/"+allDishes[i].image;
 		p.innerHTML = allDishes[i].name;
 

@@ -24,13 +24,11 @@ var SideBarView = function(container, model){
 		menu.innerHTML = "";
 		//fill with current menu
 		dishes = model.getFullMenu();
+		console.log("dishes in sidebarview: "+dishes);
 		var totPrice = 0;
 		dishes.forEach(function(dish){
 			// calculate dish price
-			var price = 0;
-			dish.ingredients.forEach(function(ingredient){
-				price += ingredient.price*model.getNumberOfGuests();
-			});
+			var price = dish.pricePerServing*model.getNumberOfGuests();
 			totPrice += price;
 			//Create node hierarchy
 			var wrapper = document.createElement("div");
@@ -39,7 +37,11 @@ var SideBarView = function(container, model){
 			item.classList.add("menuitem");
 			var name = document.createElement("span");
 			name.classList.add("dishname");
-			var nameText = document.createTextNode(dish.name);
+			var dishName = dish.title;
+			if (dishName.length>20){
+				dishName = dishName.substring(0,20)+"...";
+			}
+			var nameText = document.createTextNode(dishName);
 			var priceNode = document.createElement("span");
 			priceNode.classList.add("dishprice");
 			var priceText = document.createTextNode(price+"");
@@ -54,7 +56,7 @@ var SideBarView = function(container, model){
 		});
 
 		//update total price
-		totalPrice.text("SEK "+totPrice);
+		totalPrice.text(totPrice.toFixed(2)+" SEK");
 	}
 
 	model.addObserver(this);

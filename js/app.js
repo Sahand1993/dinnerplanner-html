@@ -1,10 +1,10 @@
 $(function() {
-	//We instantiate our model
-	var model = new DinnerModel();
-
 	// We instantiate the general controller
 	var generalController = new GeneralController();
 	
+	//We instantiate our model
+	var model = new DinnerModel(generalController);
+
  	var head = $("#header");
 	var headView = new HeaderView(head, model);
 	generalController.addView(headView);
@@ -16,14 +16,13 @@ $(function() {
 
 	// the search bar and the results
 	var dishSearcher = $("#dishSearcher");
-	var dishreel = dishSearcher.find("#dishreel")[0];
 	// PROBLEM: dishSearcherView doesn't load the html before dishSearcherController runs and therefore dishSearcherController.dishreel becomes undefined
 	var dishSearcherView = new DishSearcherView(dishSearcher, model, generalController); 
 	generalController.addView(dishSearcherView);
 	var dishSearcherController = new DishSearcherController(dishSearcher, model, generalController, dishSearcherView);
  
 	var dishDetails = $("#dishDetails");
-	var dishDetailsView = new DishDetailsView(dishDetails, model);
+	var dishDetailsView = new DishDetailsView(dishDetails, model, generalController);
 	generalController.addView(dishDetailsView);
 	var dishDetailsController = new DishDetailsController(dishDetails, model, generalController);
 
@@ -48,12 +47,17 @@ $(function() {
 	generalController.addView(summaryHeaderView);
 	var summaryHeaderController = new SummaryHeaderController(summaryHeader, model, generalController);
 
+	var error = $("#error");
+	var errorView = new ErrorView(error, model);
+	generalController.addView(errorView);
+
 	//Adding all screens
 	generalController.addScreen("WELCOME", [headView, welcomeView]);
 	generalController.addScreen("EDIT", [sidebarView, headView, dishSearcherView]);
 	generalController.addScreen("DETAILS", [sidebarView, headView, dishDetailsView]);
 	generalController.addScreen("OVERVIEW", [headView, dinnerOverviewView, summaryHeaderView]);
 	generalController.addScreen("PRINT", [headView, dinnerPrintoutView, summaryHeaderView]);
+	generalController.addScreen("ERROR", [errorView]);
 	//Start off by showing welmcome screen
 	//generalController.showScreen("WELCOME");
 	generalController.showScreen("WELCOME");

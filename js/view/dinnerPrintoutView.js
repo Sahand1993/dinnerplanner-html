@@ -27,16 +27,17 @@ var DinnerPrintoutView = function(container, model){
             imgWrapper.classList.add("dinnerprintout-img");
             
             var img = document.createElement("img");
-            img.src = "images/"+dish.image;
+            console.log("dish.image in printoutview: "+dish.image);
+            img.src = dish.image;
             
             var dishtext = document.createElement("div");
             dishtext.classList.add("dinnerprintout-dishtext");
             
             var header = document.createElement("h4");
-            var headerText = document.createTextNode(dish.name);
+            var headerText = document.createTextNode(dish.title);
 
             var description = document.createElement("p");
-            var descriptionText = document.createTextNode(dish.type);
+            var descriptionText = document.createTextNode(dish.dishType);
 
             var preparation = document.createElement("div");
             preparation.classList.add("col-lg-5", "col-md-5", "col-sm-4", "col-xs-12", "dinnerprintout-preparation");
@@ -48,7 +49,7 @@ var DinnerPrintoutView = function(container, model){
             var prepHeaderText = document.createTextNode("Preparation");
 
             var prepPara = document.createElement("p");
-            var prepParaText = document.createTextNode(dish.description);
+            var prepParaText = document.createTextNode(dish.instructions);
             
             container[0].appendChild(row); 
 

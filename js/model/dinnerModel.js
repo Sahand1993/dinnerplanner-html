@@ -1,9 +1,8 @@
 //DinnerModel Object constructor
 
-var DinnerModel = function() {
- 
-	//TODO Lab 1 implement the data structure that will hold number of guest
-	// and selected dishes for the dinner menu
+var DinnerModel = function(generalController) {
+
+	var API_KEY = "Qu9grxVNWpmshA4Kl9pTwyiJxVGUp1lKzrZjsnghQMkFkfA4LB";
 
 	var numberOfGuests = 0;
 
@@ -13,11 +12,8 @@ var DinnerModel = function() {
 
 	//Returns price for 1 person eating dish
 	this.calcPrice = function(dish){
-		var totPrice = 0;
-		dish.ingredients.forEach(function(ingredient){
-			totPrice += ingredient.price;
-		});
-		return totPrice;
+		var price = dish.pricePerServing;
+		return price;
 	}
 
 	this.getDishTypes = function(){
@@ -49,7 +45,10 @@ var DinnerModel = function() {
 	//Returns the dish that is on the menu for selected type 
 	this.getSelectedDish = function(type) {
 		return selectedDishes.filter(function(dish){
-			return dish.type == type;
+			if (dish.dishTypes.indexOf(type) != -1){
+				return true;
+			}
+			return false;
 		});
 	}
 
@@ -58,11 +57,12 @@ var DinnerModel = function() {
 		return selectedDishes;
 	}
 
-	//Returns all ingredients for all the dishes on the menu.
+	//Returns all ingredients for all the dishes on the menu. 
+	//DEPRECATED
 	this.getAllIngredients = function() {
 		var allIngredients = [];
 		for(var i=0; i<selectedDishes.length; i++){
-			var dishIngredients = selectedDishes[i].ingredients;
+			var dishIngredients = selectedDishes[i].extendedIngredients;
 			allIngredients.push(...dishIngredients);
 		}
 		return allIngredients;
@@ -71,27 +71,24 @@ var DinnerModel = function() {
 	//Returns the total price of the menu (all the ingredients multiplied by number of guests).
 	this.getTotalMenuPrice = function() {
 		var totalPrice = 0;
-		var allIngredients = this.getAllIngredients();
-		for(var i=0; i<allIngredients.length; i++){
-			totalPrice += allIngredients[i].price*numberOfGuests;
-		}
+		selectedDishes.forEach(function(dish){
+			totalPrice += dish.pricePerServing*numberOfGuests;
+		});
 		return totalPrice;
 	}
 
 	//Adds the passed dish to the menu. If the dish of that type already exists on the menu
 	//it is removed from the menu and the new one added.
-	this.addDishToMenu = function(id) {
-		var newDish = this.getDish(id);
-		
-		//is there a dish of the same type?
-		var oldDish = this.getSelectedDish(newDish.type)[0];
-		//if there is, remove it
-		if (oldDish != undefined){
-			var index = selectedDishes.indexOf(oldDish);
-			selectedDishes.splice(index, 1);
-		}
-		selectedDishes.push(newDish);
-		notifyObservers();
+	this.addDishToMenu = function(id, type){
+		var newDish;
+		this.getDish(id, function(data){
+			newDish = data;
+			newDish.dishType = type;
+			
+			selectedDishes.push(newDish);
+			
+			notifyObservers();
+		});
 	}
 
 	//Removes dish from menu
@@ -105,6 +102,7 @@ var DinnerModel = function() {
 	//function that returns all dishes of specific type (i.e. "starter", "main dish" or "dessert")
 	//you can use the filter argument to filter out the dish by name or ingredient (use for search)
 	//if you don't pass any filter all the dishes will be returned
+	/*
 	this.getAllDishes = function (type,filter) {
 	  return dishes.filter(function(dish) {
 		filter = filter.toLowerCase();
@@ -124,14 +122,45 @@ var DinnerModel = function() {
 	  	return dish.type == type && found;
 	  });	
 	}
+	*/
+
+	this.getAllDishes = function (type, filter, callback) {
+		filter = filter.toLowerCase();
+		$.ajax( {
+		   url: "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/search?type="+type+"&query="+filter,
+		   method: "GET",
+		   headers: {
+			 'X-Mashape-Key': API_KEY
+		   },
+		   success: function(data) {
+			   callback(data);
+		   },
+		   error: function(error) {
+			   generalController.showScreen("ERROR");
+		   }
+		 });
+	}
+
+	this.getImageURL = function(image){
+		return "https://spoonacular.com/recipeImages/"+image;
+	}
 
 	//function that returns a dish of specific ID
-	this.getDish = function (id) {
-	  for(key in dishes){
-			if(dishes[key].id == id) {
-				return dishes[key];
+	this.getDish = function (id, callback) {
+		var model = this;
+		$.ajax({
+			url: "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/"+id+"/information",
+			method: "GET",
+			headers: {
+				'X-Mashape-Key':API_KEY,
+			},
+			success: function(data){
+				callback(data, model);
+			},
+			error: function(error){
+				generalController.showScreen("ERROR");
 			}
-		}
+		});
 	}
 
 
