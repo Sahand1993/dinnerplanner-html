@@ -42,7 +42,7 @@ var DinnerOverviewView = function(container, model){
                     priceTag.classList.add("pricetag");
                     var priceText = document.createTextNode(price+" SEK");
                     var floatdiv = document.createElement("div");
-                    floatdiv.classList.add("floatdiv");
+                    floatdiv.classList.add("div");
                     var dishElement = document.createElement("div");
                     dishElement.classList.add("dinneroverview-dish");
 
